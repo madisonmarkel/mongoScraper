@@ -1,0 +1,28 @@
+{
+  "name": "mongoscraper",
+  "version": "1.0.0",
+  "description": "<h2>NPR Article Scraper</h2> <p>This project scrapes the NPR homepage for today's top articles. The user is line allowed to make comments on the articles</p>",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madisonmarkel/mongoScraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madisonmarkel/mongoScraper/issues"
+  },
+  "homepage": "https://github.com/madisonmarkel/mongoScraper#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.3.12",
+    "morgan": "^1.9.1"
+  }
+}
