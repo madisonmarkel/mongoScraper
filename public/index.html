@@ -6,11 +6,33 @@
     <title>NPR News Scrape</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <style>
+        body{
+            background: #9f9fb5;
+        }
+        .container {
+            margin-right: 5%;
+            margin-left:5%;
+            background:#9f9fb5;
+        }
+        .text_center {
+            text-align: center;
+        }
+        #articles {
+            float:left;
+            max-width: 40%;
+        }
+        #notes {
+            float:right;
+            max-width: 40%;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>NPR News Scraper</h1>
+        <h1 class='text_center'>NPR News Scraper</h1>
         <a href="/" id="scrape">Rescan NPR for New Articles</a>
+        <a href="/saved" id="savedNotesPage">See Saved Articles</a>
             <div id="articles"></div>
             <div id="notes"></div>
     </div>
