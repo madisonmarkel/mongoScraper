@@ -108,6 +108,38 @@ app.post("/articles/:id", function(req, res) {
 
 });
 
+// SAVED POST ROUTE
+app.post("/saved/:id", function(req, res){
+  db.Saved.create(req.body)
+  .then(function(dbSaved) {
+    // View the added result in the console
+    console.log(dbSaved);
+    return db.Article.findOneAndUpdate({_id: req.params.id}, { saved: dbSaved._id }, { new: true });
+  })
+  .then(function(dbSaved) {
+    // If the User was updated successfully, send it back to the client
+    res.json(dbSaved);
+  })
+  .catch(function(err) {
+    // If an error occurred, log it
+    console.log(err);
+  });
+})
+
+// SAVED GET ROUTE
+app.get("/saved", function(req, res){
+  db.Saved.find({})
+  .populate("saved")
+  .then(function(dbScrapeInfo){
+    //res.json(dbScrapeInfo);
+    console.log(dbScrapeInfo);
+    
+    })
+  .catch(function(error){
+    res.json(error);
+  })
+})
+
 // Start the server
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
