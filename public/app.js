@@ -30,12 +30,13 @@ $(document).on("click", "#makeNoteHTML", function(){
     // With that done, add the note information to the page
     .then(function(data) {
       console.log(data);
+      $("#notes").addClass("notes_padding");
       // The title of the article
       $("#notes").append("<h2>" + data.title + "</h2>");
       // An input to enter a new title
-      $("#notes").append("<input id='titleinput' name='title' >");
+      $("#notes").append("<h4>Title:</h4><input id='titleinput' name='title' >");
       // A textarea to add a new note body
-      $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+      $("#notes").append("<h4>Body:</h4><textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
       $("#notes").append("<button data-id='" + data._id + "' id='savenote' data-title='" + data.title + "' data-summary='" + data.summary + "'>Save Note</button>");
 

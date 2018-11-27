@@ -8,33 +8,71 @@
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
     <style>
         body{
-            background: #9f9fb5;
+            background: #fff;
+            margin: 0 0 1em;
         }
         .container {
-            margin-right: 5%;
-            margin-left:5%;
-            background:#9f9fb5;
+            background:#a0a29d;
+        }
+        #header {
+            text-align: center;
+            padding: 1em;
+            background: #e07233;
+            color:#fff;
         }
         .text_center {
             text-align: center;
         }
+        button {
+            padding:.5em 1em;
+            background:#9798d8;
+            margin:.5em 1em 0 0;
+            border-radius: .2em;
+            font-size:.8em;
+            color:#fff;
+        }
         #articles {
-            float:left;
+            float:right;
             max-width: 40%;
+            margin: 3em;
+        }
+        #news_background {
+            background: url("/images/newsprint.jpg") left top no-repeat;
+            padding: 19em;
+            position: fixed;
+            z-index:-1;
         }
         #notes {
             float:right;
             max-width: 40%;
+            z-index: 1;
+            background: rgba(214, 189, 175, 0.81);
+            margin:3em;
+            position:fixed;
         }
+        .notes_padding {
+            padding:1em;
+        }
+        #titleinput, #bodyinput {
+            width:100%;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class='text_center'>NPR News Scraper</h1>
-        <a href="/" id="scrape">Rescan NPR for New Articles</a>
-        <a href="/saved" id="savedNotesPage">See Saved Articles</a>
+        <div id="header">
+            <h1 class='text_center'>NPR News Scraper</h1>
+            <a href="/" id="scrape">Rescan NPR for New Articles</a>
+            <a href="/saved" id="savedNotesPage">See Saved Articles</a>
+        </div>
+        
             <div id="articles"></div>
-            <div id="notes"></div>
+        <div id="news_background">
+           
+        </div>
+         <div id="notes"></div>
+            
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
