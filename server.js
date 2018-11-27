@@ -1,6 +1,11 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var exphbs = require("express-handlebars");
+var app = express();
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
@@ -14,7 +19,6 @@ var db = require("./models");
 var PORT = 3000;
 
 // Initialize Express
-var app = express();
 
 // Configure middleware
 
@@ -30,6 +34,11 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/nprScraper", { useNewUrlParser: true });
 
 // =================================== ROUTES
+
+// HOME
+app.get("/", function(req, res) {
+    res.render("index");//, { quotes: data });
+});
 
 // ================== NPR SCRAPE
 app.get("/scrape", function(req, res) {
@@ -118,7 +127,8 @@ app.post("/saved/:id", function(req, res){
   })
   .then(function(dbSaved) {
     // If the User was updated successfully, send it back to the client
-    res.json(dbSaved);
+    //res.json(dbSaved);
+    res.render("saved", { savedArticles: dbSaved });
   })
   .catch(function(err) {
     // If an error occurred, log it
@@ -133,7 +143,8 @@ app.get("/saved", function(req, res){
   .then(function(dbScrapeInfo){
     //res.json(dbScrapeInfo);
     console.log(dbScrapeInfo);
-    
+    res.render("saved", { savedArticles: dbScrapeInfo });
+
     })
   .catch(function(error){
     res.json(error);
