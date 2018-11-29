@@ -54,6 +54,18 @@ $(document).on("click", "#makeNoteHTML", function(){
 
 });
 
+// ============== ON CLICK TO SEE ALL NOTES
+$(document).on("click", "#allNotes", function() {
+  $.ajax({
+    method: "GET",
+    url: "/notes/"
+  })
+    // With that done, add the note information to the page
+    .then(function(data) {
+      console.log(data);
+      res.JSON(data);
+})
+
 // ============== ON CLICK TO SAVE NOTES
 $(document).on("click", "#savenote", function() {
   // Grab the id associated with the article from the submit button

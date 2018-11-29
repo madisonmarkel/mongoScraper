@@ -117,12 +117,24 @@ app.post("/articles/:id", function(req, res) {
 
 });
 
-// SEE ALL NOTES
+// SEE ARTICLE NOTES
 app.get("/notes/:id", function(req,res){
   db.Article.findOne({_id: req.params.id})
   .populate("note")
   .then(function(dbScrapeInfo){
     res.render("notes", { articleNotes: dbScrapeInfo });
+  }).catch(function(error){
+    res.json(error);
+  })
+});
+
+// SEE ALL NOTES
+app.get("/notes/", function(req,res){
+  db.Note.find({})
+  .populate("note")
+  .then(function(dbScrapeInfo){
+    res.json(dbScrapeInfo);
+    //res.render("notes", { articleNotes: dbScrapeInfo });
   }).catch(function(error){
     res.json(error);
   })
