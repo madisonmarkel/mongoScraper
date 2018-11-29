@@ -1,12 +1,36 @@
-<h1>Saved Articles</h1>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>NPR News Scrape</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=News+Cycle|Oswald" rel="stylesheet">
+</head>
+
+<div id="header">
+  <h1>Saved Articles</h1>
+  <button><a href="/" id="scrape">Home</a></button>
+  <button><a href="/notes" id="allNotes">Your Notes</a></button>
+</div>
 
 <!-- Pass in data from server.js -->
-<ul>
-  {{#each savedArticles}}
-  	<li>
-  		<p><span class="label">Title:</span> {{this.title}}</p>
-      <p><span class="label">Summary:</span> {{this.body}}</p>
-      <p><a href="{{this.link}}" target="_blank">Read Full Article</a></p>
-  	</li>
-  {{/each}}
-</ul>
+<div class="text_middle" id="savedArticlesHTML">
+
+  <div class="individualSavedHTML">
+    {{#each savedArticles}}
+    <ul>
+      <li>
+        <p><span class="label">Title:</span> {{this.title}}</p>
+        <p><span class="label">Summary:</span> {{this.body}}</p>
+        <p><a href="{{this.link}}" target="_blank">Read Full Article</a></p>
+        {{!-- <button id='makeNoteHTML' data-id='{{this._id}}'>Make a Note</button> --}}
+        <button id='deleteSavedHTML' data-id='{{this._id}}' data-title='{{this.title}}' data-summary='{{this.body}}'
+          data-link='{{this.link}}'>Delete from Saved</button>
+      </li>
+    </ul>
+    {{/each}}
+  </div>
+  <div id="notes"></div>
+</div>

@@ -4,7 +4,9 @@ var mongoose = require("mongoose");
 var exphbs = require("express-handlebars");
 var app = express();
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs({
+  defaultLayout: "main"
+}));
 app.set("view engine", "handlebars");
 
 // Our scraping tools
@@ -25,31 +27,35 @@ var PORT = 3000;
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Parse request body as JSON
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/nprScraper", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/nprScraper", {
+  useNewUrlParser: true
+});
 
 // =================================== ROUTES
 
 // HOME
-app.get("/", function(req, res) {
-    res.render("index");//, { quotes: data });
+app.get("/", function (req, res) {
+  res.render("index"); //, { quotes: data });
 });
 
 // ================== NPR SCRAPE
-app.get("/scrape", function(req, res) {
+app.get("/scrape", function (req, res) {
   // Grab the body of the html with axios
-  axios.get("https://www.npr.org/").then(function(response) {
+  axios.get("https://www.npr.org/").then(function (response) {
     // Load NPR into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
     // grabbing class we want to scrape
-    $(".story-text").each(function(i, element) {
-        
+    $(".story-text").each(function (i, element) {
+
       // Save an empty result object
       var result = {};
 
@@ -60,11 +66,11 @@ app.get("/scrape", function(req, res) {
 
       // Create a new Article (linkingn to Article.js) using the `result` object built from scraping
       db.Article.create(result)
-        .then(function(dbArticle) {
+        .then(function (dbArticle) {
           // View the added result in the console
           console.log(dbArticle);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           // If an error occurred, log it
           console.log(err);
         });
@@ -76,41 +82,49 @@ app.get("/scrape", function(req, res) {
 });
 
 // Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
+app.get("/articles", function (req, res) {
   db.Article.find({})
-  .then(function(dbScrape) {
-    // If all Notes are successfully found, send them back to the client
-    res.json(dbScrape);
-  })
-  .catch(function(err) {
-    // If an error occurs, send the error back to the client
-    res.json(err);
-  });
+    .then(function (dbScrape) {
+      // If all Notes are successfully found, send them back to the client
+      res.json(dbScrape);
+    })
+    .catch(function (err) {
+      // If an error occurs, send the error back to the client
+      res.json(err);
+    });
 });
 
 // Route for grabbing a specific Article by id, populate it with it's note
-app.get("/articles/:id", function(req, res) {
-  db.Article.findOne({_id: req.params.id})
-  .populate("note")
-  .then(function(dbScrapeInfo){
-    res.json(dbScrapeInfo);
+app.get("/articles/:id", function (req, res) {
+  db.Article.findOne({
+      _id: req.params.id
     })
-  .catch(function(error){
-    res.json(error);
-  })
-  });
+    .populate("note")
+    .then(function (dbScrapeInfo) {
+      res.json(dbScrapeInfo);
+    })
+    .catch(function (error) {
+      res.json(error);
+    })
+});
 
 // Route for saving/updating an Article's associated Note
-app.post("/articles/:id", function(req, res) {
-    db.Note.create(req.body)
-    .then(function(dbNote) {
-      return db.Article.findOneAndUpdate({_id: req.params.id}, { note: dbNote._id }, { new: true });
+app.post("/articles/:id", function (req, res) {
+  db.Note.create(req.body)
+    .then(function (dbNote) {
+      return db.Article.findOneAndUpdate({
+        _id: req.params.id
+      }, {
+        note: dbNote._id
+      }, {
+        new: true
+      });
     })
-    .then(function(dbArticle) {
+    .then(function (dbArticle) {
       // If the User was updated successfully, send it back to the client
       res.json(dbArticle);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       // If an error occurs, send it back to the client
       res.json(err);
     });
@@ -118,63 +132,125 @@ app.post("/articles/:id", function(req, res) {
 });
 
 // SEE ARTICLE NOTES
-app.get("/notes/:id", function(req,res){
-  db.Article.findOne({_id: req.params.id})
-  .populate("note")
-  .then(function(dbScrapeInfo){
-    res.render("notes", { articleNotes: dbScrapeInfo });
-  }).catch(function(error){
-    res.json(error);
-  })
+app.get("/notes/:id", function (req, res) {
+  db.Article.findOne({
+      _id: req.params.id
+    })
+    .populate("note")
+    .then(function (dbScrapeInfo) {
+      res.render("notes", {
+        articleNotes: dbScrapeInfo
+      });
+    }).catch(function (error) {
+      res.json(error);
+    })
 });
 
 // SEE ALL NOTES
-app.get("/notes/", function(req,res){
+app.get("/notes/", function (req, res) {
   db.Note.find({})
-  .populate("note")
-  .then(function(dbScrapeInfo){
-    res.json(dbScrapeInfo);
-    //res.render("notes", { articleNotes: dbScrapeInfo });
-  }).catch(function(error){
-    res.json(error);
-  })
+    .populate("note")
+    .then(function (dbScrapeInfo) {
+      //res.json(dbScrapeInfo);
+      res.render("allnotes", {
+        articleNotes: dbScrapeInfo
+      });
+    }).catch(function (error) {
+      res.json(error);
+    })
 });
 
 // SAVED POST ROUTE
-app.post("/saved/:id", function(req, res){
+app.post("/saved/:id", function (req, res) {
   db.Saved.create(req.body)
-  .then(function(dbSaved) {
-    // View the added result in the console
-    console.log(dbSaved);
-    return db.Article.findOneAndUpdate({_id: req.params.id}, { saved: dbSaved._id }, { new: true });
-  })
-  .then(function(dbSaved) {
-    // If the User was updated successfully, send it back to the client
-    //res.json(dbSaved);
-    res.render("saved", { savedArticles: dbSaved });
-  })
-  .catch(function(err) {
-    // If an error occurred, log it
-    console.log(err);
-  });
+    .then(function (dbSaved) {
+      // View the added result in the console
+      console.log(dbSaved);
+      return db.Article.findOneAndUpdate({
+        _id: req.params.id
+      }, {
+        saved: dbSaved._id
+      }, {
+        new: true
+      });
+    })
+    .then(function (dbSaved) {
+      // If the User was updated successfully, send it back to the client
+      //res.json(dbSaved);
+      res.render("saved", {
+        savedArticles: dbSaved
+      });
+    })
+    .catch(function (err) {
+      // If an error occurred, log it
+      console.log(err);
+    });
 })
 
+// INDIVIDUAL SAVED ROUTE GET FOR DELETE BUTTONS
+app.get("/saved/:id", function (req, res) {
+  db.Saved.findOne({
+      _id: req.params.id
+    })
+    .populate("note")
+    .then(function (dbScrapeInfo) {
+      res.render("saved", {
+        savedArticles: dbScrapeInfo
+      });
+    }).catch(function (error) {
+      res.json(error);
+    })
+});
+
 // SAVED GET ROUTE
-app.get("/saved", function(req, res){
+app.get("/saved", function (req, res) {
   db.Saved.find({})
-  .populate("saved")
-  .then(function(dbScrapeInfo){
-    //res.json(dbScrapeInfo);
-    console.log(dbScrapeInfo);
-    res.render("saved", { savedArticles: dbScrapeInfo });
+    .populate("saved")
+    .then(function (dbScrapeInfo) {
+      //res.json(dbScrapeInfo);
+      console.log(dbScrapeInfo);
+      res.render("saved", {
+        savedArticles: dbScrapeInfo
+      });
 
     })
-  .catch(function(error){
-    res.json(error);
-  })
+    .catch(function (error) {
+      res.json(error);
+    })
+})
+
+// SAVED DELETE ROUTE
+app.delete("/saved/:id", function (req, res) {
+  console.log("DELTEROUTE");
+  db.Saved.findOne({
+    _id: req.params.id
+  }).deleteOne()
+    //db.Saved.deleteOne({_id: req.params.id})
+    .then(function (dbSaved) {
+      // View the added result in the console
+      console.log(dbSaved);
+      return db.Saved.findOneAndUpdate({
+        _id: req.params.id
+      }, {
+        saved: dbSaved._id
+      }, {
+        new: true
+      });
+    })
+    .then(function (dbSaved) {
+      // If the User was updated successfully, send it back to the client
+      //res.json(dbSaved);
+      res.render("saved", {
+        savedArticles: dbSaved
+      });
+    })
+    .catch(function (err) {
+      // If an error occurred, log it
+      console.log(err);
+    });
 })
 
 // Start the server
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("App running on port " + PORT + "!");
 });

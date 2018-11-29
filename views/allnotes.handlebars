@@ -6,10 +6,11 @@
     <title>NPR News Scrape</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=News+Cycle|Oswald" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" /> 
 </head>
 
 <div id="header">
-<h1>{{articleNotes.title}}</h1>
+<h1>Article Notes</h1>
     <button><a href="/" id="scrape">Home</a></button>
     <button><a href="/saved" id="savedNotesPage">See Saved Articles</a></button>
 </div>
@@ -17,11 +18,12 @@
 <!-- Pass in data from server.js -->
 <div class="text_middle">
     <ul>
-        <li>
-        <p><span class="label">Summary:</span> {{articleNotes.summary}}</p>
-        <p><a href="{{articleNotes.link}}" target="_blank">Read Full Article</a></p>
-        <p><span class="label">Note Title:</span> {{articleNotes.note.title}}</p>
-        <p><span class="label">Note Body:</span> {{articleNotes.note.body}}</p>
-        </li>
+        {{#each articleNotes}}
+            <li>
+            <p><span class="noteTitle">Title:</span> {{this.title}}</p>
+            <p><span class="label">Summary:</span> {{this.body}}</p>
+            {{!-- <p><a href='/notes/{{this._id}}'>See Full Details</a></p> --}}
+            </li>
+        {{/each}}
     </ul>
 </div>
