@@ -40,12 +40,15 @@ $(document).on("click", "#makeNoteHTML", function(){
       // A button to submit a new note, with the id of the article saved to it
       $("#notes").append("<button data-id='" + data._id + "' id='savenote' data-title='" + data.title + "' data-summary='" + data.summary + "'>Save Note</button>");
 
+
       // If there's a note in the article
       if (data.note) {
+        console.log("DATA NOTE APP.JS LINE 46");
         // Place the title of the note in the title input
         $("#titleinput").val(data.note.title);
         // Place the body of the note in the body textarea
         $("#bodyinput").val(data.note.body);
+        $("#notes").append("<a href='/notes/" + data._id + "'>See Note</a>")
       }
     });
 
@@ -71,6 +74,8 @@ $(document).on("click", "#savenote", function() {
     .then(function(data) {
       // Log the response
       console.log(data);
+      //change color of note button
+      $.this("#savenote").addClass("savebuttonClick")
       // Empty the notes section
       $("#notes").empty();
     });

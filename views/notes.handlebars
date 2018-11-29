@@ -1,0 +1,12 @@
+<h1>{{articleNotes.title}}</h1>
+
+<!-- Pass in data from server.js -->
+<ul>
+  	<li>
+      <p><span class="label">Summary:</span> {{articleNotes.summary}}</p>
+      <p><a href="{{articleNotes.link}}" target="_blank">Read Full Article</a></p>
+      <p><span class="label">Note Title:</span> {{articleNotes.note.title}}</p>
+      <p><span class="label">Note Body:</span> {{articleNotes.note.body}}</p>
+  	</li>
+    <button class='makeNoteHTML' data-id='"+ data[i]._id +"'>Make a Note</button>
+</ul>

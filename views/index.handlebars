@@ -36,6 +36,9 @@
             font-size:.8em;
             color:#fff;
         }
+        .savebuttonClick {
+            background: #ccccd2;
+        }
         #articles {
             float:right;
             max-width: 43%;
@@ -61,7 +64,12 @@
         #titleinput, #bodyinput {
             width:100%;
         }
-
+    /*MEDIA QUERIES*/
+        @media screen and (max-width: 767px) {
+            .container {
+                clear:both;
+            }
+        }
     </style>
 </head>
 <body>
@@ -72,11 +80,9 @@
             <button><a href="/saved" id="savedNotesPage">See Saved Articles</a></button>
         </div>
         
-            <div id="articles"></div>
-        <div id="news_background">
-           
-        </div>
-         <div id="notes"></div>
+        <div id="articles"></div>
+        <div id="news_background"></div>
+        <div id="notes"></div>
             
     </div>
 </body>
