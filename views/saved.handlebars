@@ -25,7 +25,7 @@
         <p><span class="label">Title:</span> {{this.title}}</p>
         <p><span class="label">Summary:</span> {{this.body}}</p>
         <p><a href="{{this.link}}" target="_blank">Read Full Article</a></p>
-        {{!-- <button id='makeNoteHTML' data-id='{{this._id}}'>Make a Note</button> --}}
+        {{!-- <button class='makeNoteHTML' data-id='{{this._id}}'>Make a Note</button> --}}
         <button id='deleteSavedHTML' data-id='{{this._id}}' data-title='{{this.title}}' data-summary='{{this.body}}'
           data-link='{{this.link}}'>Delete from Saved</button>
       </li>

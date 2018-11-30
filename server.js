@@ -35,9 +35,13 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/nprScraper", {
-  useNewUrlParser: true
-});
+// mongoose.connect("mongodb://localhost/nprScraper", {
+//   useNewUrlParser: true
+// });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
+
 
 // =================================== ROUTES
 

@@ -4,7 +4,7 @@ $.getJSON("/articles", function (data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
-    $("#articles").prepend("<div data-id='" + data[i]._id + "'>" + "<h2>" + data[i].title + "</h2><p>" + data[i].summary + "</p><a href='" + data[i].link + "'>Read Article</a><br><button id='makeNoteHTML' data-id='" + data[i]._id + "'>Make a Note</button><button data-id='" + data[i]._id + "' id='saveArticleHTML' data-title='" + data[i].title + "' data-summary='" + data[i].summary + "' data-link='" + data[i].link + "'>Save Article</button></div>");
+    $("#articles").prepend("<div data-id='" + data[i]._id + "'>" + "<h2>" + data[i].title + "</h2><p>" + data[i].summary + "</p><a href='" + data[i].link + "'>Read Article</a><br><button class='makeNoteHTML' data-id='" + data[i]._id + "'>Make a Note</button><button data-id='" + data[i]._id + "' id='saveArticleHTML' data-title='" + data[i].title + "' data-summary='" + data[i].summary + "' data-link='" + data[i].link + "'>Save Article</button></div>");
   }
 });
 
@@ -16,7 +16,7 @@ $(document).on("click", "#scrape", function () {
 });
 
 // ============== ON CLICK TO MAKE NOTE (GOES TO NOTE ROUTE)
-$(document).on("click", "#makeNoteHTML", function () {
+$(document).on("click", ".makeNoteHTML", function () {
   console.log("help");
   // Empty the notes from the note section
   $("#notes").empty();
@@ -49,7 +49,7 @@ $(document).on("click", "#makeNoteHTML", function () {
         $("#titleinput").val(data.note.title);
         // Place the body of the note in the body textarea
         $("#bodyinput").val(data.note.body);
-        $("#notes").append("<a href='/notes/" + data._id + "'>See Note</a>")
+        $("#notes").append("<a href='/notes/" + data._id + "'>See Note</a>");
       }
     });
 
@@ -90,7 +90,6 @@ $(document).on("click", "#savenote", function () {
       console.log(data);
       // Empty the notes section
       $("#notes").empty();
-      $("#makeNoteHTML").text("Update and View Note");
     });
 
   // Also, remove the values entered in the input and textarea for note entry
