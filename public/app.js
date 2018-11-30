@@ -115,11 +115,10 @@ $(document).on("click", "#deleteSavedHTML", function () {
     })
     // With that done
     .then(function (data) {
-      res.JSON(data);
       // Log the response
       console.log(data);
-      // Empty the notes section
-      $("/saved").reload();
+      location.reload();
+
     });
 });
 
