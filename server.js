@@ -47,7 +47,7 @@ mongoose.connect(MONGODB_URI);
 
 // HOME
 app.get("/", function (req, res) {
-  res.render("index"); //, { quotes: data });
+  res.render("index");
 });
 
 // ================== NPR SCRAPE
