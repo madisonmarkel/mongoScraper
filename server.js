@@ -256,5 +256,5 @@ app.delete("/saved/:id", function (req, res) {
 
 // Start the server
 app.listen(process.env.PORT || 3000, function () {
-  console.log("App running on port " + PORT + "!");
+  console.log("App running on port "  + "!");
 });
