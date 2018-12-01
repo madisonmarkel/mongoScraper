@@ -43,8 +43,7 @@ var db = require("./models");
 // mongoose.connect("mongodb://localhost/nprScraper", {
 //   useNewUrlParser: true
 // });
-
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nprScraper";
 
 mongoose.connect(MONGODB_URI);
 
