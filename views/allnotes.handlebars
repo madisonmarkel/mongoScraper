@@ -24,6 +24,8 @@
             <p><span class="label">Summary:</span> {{this.body}}</p>
             {{!-- <p><a href='/notes/{{this._id}}'>See Full Details</a></p> --}}
             </li>
+            <button id='deleteNoteHTML' data-id='{{this._id}}' data-title='{{this.title}}' data-summary='{{this.body}}'
+          data-link='{{this.link}}'>Delete Note</button>
         {{/each}}
     </ul>
 </div>

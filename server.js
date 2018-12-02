@@ -166,6 +166,37 @@ app.get("/notes/", function (req, res) {
     })
 });
 
+// NOTES DELETE ROUTE
+app.delete("/notes/:id", function (req, res) {
+  console.log("DELTEROUTE");
+  db.Note.findOne({
+    _id: req.params.id
+  }).deleteOne()
+    //db.Saved.deleteOne({_id: req.params.id})
+    .then(function (dbNotes) {
+      // View the added result in the console
+      console.log(dbNotes);
+      return db.Saved.findOneAndUpdate({
+        _id: req.params.id
+      }, {
+        note: dbNotes._id
+      }, {
+        new: true
+      });
+    })
+    .then(function (dbNotes) {
+      // If the User was updated successfully, send it back to the client
+      //res.json(dbNotes);
+      res.render("saved", {
+        savedArticles: dbNotes
+      });
+    })
+    .catch(function (err) {
+      // If an error occurred, log it
+      console.log(err);
+    });
+})
+
 // SAVED POST ROUTE
 app.post("/saved/:id", function (req, res) {
   db.Saved.create(req.body)

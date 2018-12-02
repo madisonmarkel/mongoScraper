@@ -97,6 +97,31 @@ $(document).on("click", "#savenote", function () {
   $("#bodyinput").val("");
 });
 
+// ============== ON CLICK TO DELETED NOTES
+$(document).on("click", "#deleteNoteHTML", function () {
+  var thisId = $(this).attr("data-id");
+  var data_title = $(this).attr("data-title");
+  var data_summary = $(this).attr("data-summary");
+  var data_link = $(this).attr("data-link");
+
+  $.ajax({
+      method: "DELETE",
+      url: "/notes/" + thisId,
+      data: {
+        title: data_title,
+        body: data_summary,
+        link: data_link
+      }
+    })
+    // With that done
+    .then(function (data) {
+      // Log the response
+      console.log(data);
+      location.reload();
+
+    });
+});
+
 // ============== ON CLICK TO DELETED SAVED
 $(document).on("click", "#deleteSavedHTML", function () {
   var thisId = $(this).attr("data-id");

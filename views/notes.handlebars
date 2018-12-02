@@ -24,5 +24,7 @@
         <p><span class="label">Note Title:</span> {{articleNotes.note.title}}</p>
         <p><span class="label">Note Body:</span> {{articleNotes.note.body}}</p>
         </li>
+        <button id='deleteNoteHTML' data-id='{{this._id}}' data-title='{{this.title}}' data-summary='{{this.body}}'
+          data-link='{{this.link}}'>Delete from Saved</button>
     </ul>
 </div>
