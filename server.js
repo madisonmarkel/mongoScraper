@@ -15,11 +15,9 @@ app.set("view engine", "handlebars");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
+var db = require("./models");
 
 //var PORT = 3000;
-
-// $ heroku config:set NODE_ENV=production
-// $ heroku config:set NODE_PATH=lib
 
 
 // Initialize Express
@@ -37,7 +35,6 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Require all models
-var db = require("./models");
 
 // Connect to the Mongo DB
 // mongoose.connect("mongodb://localhost/nprScraper", {
